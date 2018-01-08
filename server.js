@@ -1,5 +1,7 @@
-const restify = require('restify');
-const generate = require('./app/generate')
+const restify  = require('restify')
+const cwd      = process.cwd()
+const path     = require('path')
+const app      = require(path.join(cwd, 'app'))
 
 // https://www.npmjs.com/package/yamljs
 const YAML = require('yamljs')
@@ -20,5 +22,5 @@ server.get(/\/assets\/?.*/, restify.plugins.serveStatic({
 server.use(restify.plugins.acceptParser(server.acceptable))
 server.use(restify.plugins.queryParser())
 server.use(restify.plugins.bodyParser())
-generate.init()
+app.init()
 server.listen(7000, () => console.log('%s listening at %s', server.name, server.url))
